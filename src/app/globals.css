@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #FCFBF8;
+    --bg-secondary: #F5F2EC;
+    --bg-tertiary: #EDE8DE;
+    --bg-dark: #1A1A18;
+    --bg-card: #FFFFFF;
+    
+    --text-primary: #1A1A18;
+    --text-secondary: #57554F;
+    --text-muted: #8E8A80;
+    --text-light: #FCFBF8;
+    
+    --border-subtle: #E8E3D9;
+    --border-medium: #D1C9BC;
+    --border-dark: #1A1A18;
+    
+    --accent-sand: #B5A38A;
+    --accent-olive: #67705B;
+    --accent-wine: #8A353D;
+    --accent-charcoal: #242421;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Cormorant Garamond', Didot, 'Bodoni MT', Garamond, 'Times New Roman', serif;
+  }
+}
+
+/* Custom Editorial Utilities */
+.tracking-widest-editorial {
+  letter-spacing: 0.22em;
+}
+
+.tracking-wider-editorial {
+  letter-spacing: 0.12em;
+}
+
+/* Smooth Image Hover Zoom & Overlay */
+.editorial-img-container {
+  overflow: hidden;
+  position: relative;
+  background-color: #EDE8DE;
+}
+
+.editorial-img-container img {
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+.editorial-img-container:hover img.primary-img {
+  transform: scale(1.04);
+}
+
+/* Custom Scrollbar for Luxury Aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F2EC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C4BDAF;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8E8A80;
+}
+
+/* Luxury Link Underline Animation */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Clean Transitions */
+.transition-luxury {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
