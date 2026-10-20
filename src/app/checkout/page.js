@@ -16,6 +16,8 @@ import {
   ChevronRight,
   Sparkles
 } from "lucide-react";
+import Logo from "@/components/Logo";
+import { formatPrice } from "@/utils/currency";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -23,16 +25,16 @@ export default function CheckoutPage() {
 
   // Form states
   const [formData, setFormData] = useState({
-    firstName: "Alexander",
-    lastName: "Vance",
-    email: "alexander.vance@atelier-archive.com",
-    phone: "+1 (555) 392-1084",
-    address: "74 Mercer Street, Soho",
-    apartment: "Penthouse 4B",
-    city: "New York",
-    state: "NY",
-    zipCode: "10012",
-    country: "United States",
+    firstName: "Arjun",
+    lastName: "Mehta",
+    email: "arjun.mehta@atelier-vmind.com",
+    phone: "+91 98201 54321",
+    address: "14 Colaba Causeway, Fort",
+    apartment: "Apartment 5B, Heritage Court",
+    city: "Mumbai",
+    state: "Maharashtra",
+    zipCode: "400001",
+    country: "India",
   });
 
   const [shippingMethod, setShippingMethod] = useState("express"); // "express" or "white-glove"
@@ -55,16 +57,17 @@ export default function CheckoutPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderConfirmation, setOrderConfirmation] = useState(null);
 
-  const shippingCost = shippingMethod === "white-glove" ? 35 : (cartSubtotal >= 250 ? 0 : 25);
+  const shippingCost = shippingMethod === "white-glove" ? 350 : (cartSubtotal >= 1999 ? 0 : 199);
   const orderTotal = Math.max(0, cartSubtotal - appliedDiscount + shippingCost);
 
   const handleApplyPromo = (e) => {
     e.preventDefault();
-    if (promoCode.trim().toUpperCase() === "ARCHIVE10" || promoCode.trim().toUpperCase() === "ATELIER") {
-      setAppliedDiscount(50);
-      setPromoMessage("Atelier courtesy credit of $50 applied.");
+    const code = promoCode.trim().toUpperCase();
+    if (code === "VMIND" || code === "ATELIER" || code === "ARCHIVE10") {
+      setAppliedDiscount(500);
+      setPromoMessage("V-MIND Atelier courtesy voucher of ₹500 applied.");
     } else {
-      setPromoMessage("Invalid archive code. Try 'ATELIER'.");
+      setPromoMessage("Invalid archive voucher. Try 'VMIND' or 'ATELIER'.");
     }
   };
 
@@ -75,14 +78,14 @@ export default function CheckoutPage() {
     setTimeout(() => {
       setIsSubmitting(false);
       const generatedOrder = {
-        orderId: `VDM-${Math.floor(100000 + Math.random() * 900000)}`,
-        date: new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+        orderId: `VMD-${Math.floor(100000 + Math.random() * 900000)}`,
+        date: new Date().toLocaleDateString("en-IN", { month: "long", day: "numeric", year: "numeric" }),
         items: [...cart],
         subtotal: cartSubtotal,
         discount: appliedDiscount,
         shippingCost,
         total: orderTotal,
-        paymentMethod: paymentMethod === "card" ? "Prepaid Credit Card (Demonstration)" : "Cash on Delivery (Pay Upon Inspection)",
+        paymentMethod: paymentMethod === "card" ? "Prepaid Credit/Debit Card (Demonstration)" : "Cash on Delivery (Pay Upon Inspection)",
         recipient: formData,
       };
       setOrderConfirmation(generatedOrder);
@@ -239,13 +242,13 @@ export default function CheckoutPage() {
                     onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                     className="w-full bg-[#F5F2EC] border border-[#D9D3C7] px-3.5 py-2.5 focus:outline-none focus:border-[#1A1A18] transition-colors cursor-pointer"
                   >
+                    <option value="India">India</option>
                     <option value="United States">United States</option>
                     <option value="France">France</option>
                     <option value="United Kingdom">United Kingdom</option>
                     <option value="Japan">Japan</option>
                     <option value="Germany">Germany</option>
-                    <option value="Italy">Italy</option>
-                    <option value="Canada">Canada</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
                   </select>
                 </div>
               </div>
@@ -277,15 +280,15 @@ export default function CheckoutPage() {
                       />
                       <div>
                         <p className="font-semibold text-[#1A1A18] uppercase tracking-wider">
-                          Standard Worldwide Express Courier
+                          Standard Pan-India Express Courier
                         </p>
                         <p className="text-[11px] text-[#736E64] font-light mt-0.5">
-                          Direct delivery from Biella / Veneto atelier via DHL Express (2-3 business days)
+                          Direct delivery across India via BlueDart / DHL Express (2-3 business days)
                         </p>
                       </div>
                     </div>
                     <span className="font-mono font-semibold text-[#1A1A18]">
-                      {cartSubtotal >= 250 ? "COMPLIMENTARY" : "$25"}
+                      {cartSubtotal >= 1999 ? "COMPLIMENTARY" : formatPrice(199)}
                     </span>
                   </div>
                 </label>
@@ -311,7 +314,7 @@ export default function CheckoutPage() {
                         </p>
                       </div>
                     </div>
-                    <span className="font-mono font-semibold text-[#1A1A18]">+$35</span>
+                    <span className="font-mono font-semibold text-[#1A1A18]">+{formatPrice(350)}</span>
                   </div>
                 </label>
               </div>
@@ -443,7 +446,7 @@ export default function CheckoutPage() {
                 <span>
                   {isSubmitting 
                     ? "Confirming Reservation With Atelier..." 
-                    : `Confirm Demonstration Order • $${orderTotal} USD`}
+                    : `Confirm Demonstration Order • ${formatPrice(orderTotal)}`}
                 </span>
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -477,7 +480,7 @@ export default function CheckoutPage() {
                     </p>
                   </div>
                   <span className="font-mono text-xs font-semibold text-[#1A1A18]">
-                    ${item.price * item.quantity}
+                    {formatPrice(item.price * item.quantity)}
                   </span>
                 </div>
               ))}
@@ -516,31 +519,31 @@ export default function CheckoutPage() {
             <div className="space-y-2.5 text-xs border-t border-[#E2DDD2] pt-4">
               <div className="flex justify-between text-[#636058]">
                 <span>Pieces Subtotal</span>
-                <span className="font-mono text-[#1A1A18]">${cartSubtotal}</span>
+                <span className="font-mono text-[#1A1A18]">{formatPrice(cartSubtotal)}</span>
               </div>
 
               {appliedDiscount > 0 && (
                 <div className="flex justify-between text-[#67705B]">
-                  <span>Atelier Courtesy Credit</span>
-                  <span className="font-mono">-${appliedDiscount}</span>
+                  <span>V-MIND Courtesy Credit</span>
+                  <span className="font-mono">-{formatPrice(appliedDiscount)}</span>
                 </div>
               )}
 
               <div className="flex justify-between text-[#636058]">
                 <span>Express Courier Dispatch</span>
                 <span className="font-mono text-[#1A1A18]">
-                  {shippingCost === 0 ? "Complimentary" : `$${shippingCost}`}
+                  {shippingCost === 0 ? "Complimentary" : formatPrice(shippingCost)}
                 </span>
               </div>
 
               <div className="flex justify-between text-[#636058]">
-                <span>Taxes & Customs Duties</span>
+                <span>GST & Customs Duties</span>
                 <span className="font-mono text-[#67705B]">Included</span>
               </div>
 
               <div className="pt-4 border-t border-[#E2DDD2] flex justify-between text-base font-semibold text-[#1A1A18]">
                 <span className="uppercase tracking-wider">Total</span>
-                <span className="font-mono">${orderTotal} USD</span>
+                <span className="font-mono">{formatPrice(orderTotal)}</span>
               </div>
             </div>
 
@@ -605,7 +608,7 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between pt-2 border-t border-[#EDE8DE] font-semibold text-sm">
                 <span>Total Amount:</span>
-                <span>${orderConfirmation.total} USD</span>
+                <span>{formatPrice(orderConfirmation.total)}</span>
               </div>
             </div>
 

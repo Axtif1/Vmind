@@ -2,25 +2,30 @@
 
 @layer base {
   :root {
-    --bg-primary: #FCFBF8;
-    --bg-secondary: #F5F2EC;
-    --bg-tertiary: #EDE8DE;
-    --bg-dark: #1A1A18;
-    --bg-card: #FFFFFF;
+    --bg-primary: #F8F6F1;          /* Warm ivory */
+    --bg-secondary: #F0ECE4;        /* Soft secondary ivory */
+    --bg-tertiary: #E8E3D8;         /* Muted stone */
+    --bg-dark: #171716;             /* Charcoal */
+    --bg-card: #FFFFFF;             /* Soft white */
     
-    --text-primary: #1A1A18;
-    --text-secondary: #57554F;
-    --text-muted: #8E8A80;
-    --text-light: #FCFBF8;
+    --text-primary: #171716;        /* Charcoal */
+    --text-secondary: #777168;      /* Secondary text */
+    --text-muted: #9E988D;          /* Muted text */
+    --text-light: #F8F6F1;          /* Warm ivory */
     
-    --border-subtle: #E8E3D9;
-    --border-medium: #D1C9BC;
-    --border-dark: #1A1A18;
+    --border-subtle: #DDD8CF;       /* Subtle borders */
+    --border-medium: #CDC7BC;       /* Medium borders */
+    --border-dark: #171716;         /* Charcoal border */
     
-    --accent-sand: #B5A38A;
-    --accent-olive: #67705B;
-    --accent-wine: #8A353D;
-    --accent-charcoal: #242421;
+    /* V-MIND Brand Colors */
+    --accent-red: #C9342D;          /* Logo-inspired Red */
+    --accent-red-hover: #A82721;    /* Deeper Red for Hover */
+    --accent-slate: #171716;        /* Deep Charcoal */
+    --accent-gold: #B59A6D;         /* Architectural Gold Facet */
+    --accent-wine: #C9342D;         /* Harmonized Accent */
+    --accent-charcoal: #171716;     /* Midnight Charcoal */
+    --accent-sand: #B59A6D;
+    --accent-olive: #566150;
   }
 
   body {
@@ -73,12 +78,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C4BDAF;
+  background: #C8C3B8;
   border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8E8A80;
+  background: #8A8F99;
 }
 
 /* Luxury Link Underline Animation */

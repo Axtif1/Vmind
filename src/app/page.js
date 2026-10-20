@@ -15,6 +15,7 @@ import {
   Scissors,
   Check
 } from "lucide-react";
+import { formatPrice } from "@/utils/currency";
 
 export default function HomePage() {
   const { addToCart } = useCart();
@@ -40,7 +41,7 @@ export default function HomePage() {
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=2200&q=88"
-            alt="VÉNDÔME Autumn/Winter 2026 Campaign"
+            alt="V-MIND FASHION Autumn/Winter 2026 Campaign"
             className="w-full h-full object-cover object-[center_35%] opacity-85 scale-102 transition-transform duration-1000 ease-out"
           />
           {/* Subtle gradient vignette to guarantee maximum text legibility without muddying the photo */}
@@ -349,7 +350,7 @@ export default function HomePage() {
                   {spotlightProduct.name}
                 </h3>
                 <p className="text-xl font-mono text-[#B5A38A] font-medium pt-1">
-                  ${spotlightProduct.price} USD
+                  {formatPrice(spotlightProduct.price)}
                 </p>
               </div>
 
@@ -434,7 +435,7 @@ export default function HomePage() {
             <div className="lg:col-span-5 relative aspect-[4/5] bg-[#D8D2C5] overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1200&q=85"
-                alt="VÉNDÔME Atelier Craftsmanship"
+                alt="V-MIND FASHION Atelier Craftsmanship"
                 className="w-full h-full object-cover filter grayscale contrast-110"
               />
               <div className="absolute bottom-4 left-4 bg-black/75 backdrop-blur-xs text-[#FCFBF8] px-3 py-1.5 text-[9px] font-mono tracking-widest uppercase">
@@ -502,10 +503,10 @@ export default function HomePage() {
               <Truck className="w-5 h-5 text-[#B5A38A] flex-shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-[#1A1A18]">
-                  Global Express
+                  Express Delivery
                 </h4>
                 <p className="text-[11px] text-[#736E64] font-light mt-0.5">
-                  Complimentary on all orders over $250
+                  Complimentary across India over ₹1,999
                 </p>
               </div>
             </div>

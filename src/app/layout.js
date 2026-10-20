@@ -7,10 +7,13 @@ import CartDrawer from "@/components/CartDrawer";
 import SearchModal from "@/components/SearchModal";
 
 export const metadata = {
-  title: "VÉNDÔME — Contemporary Atelier & Luxury Streetwear",
+  title: "V-MIND FASHION — Contemporary Atelier & Luxury Streetwear",
   description:
-    "An art-directed contemporary fashion house synthesizing understated luxury with architectural silhouettes and premium natural textiles.",
-  keywords: "fashion, luxury, streetwear, contemporary label, overcoats, tailoring, minimalist fashion",
+    "V-MIND FASHION: An art-directed contemporary clothing label synthesizing understated luxury with architectural silhouettes and premium natural textiles.",
+  keywords: "V-MIND, V-MIND FASHION, luxury, streetwear, contemporary label, fashion India, overcoats, tailoring, minimalist fashion",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -24,9 +27,9 @@ export default function RootLayout({ children }) {
           rel="stylesheet" 
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#FCFBF8] text-[#1A1A18] font-sans selection:bg-[#242421] selection:text-[#FCFBF8]">
+      <body className="min-h-full flex flex-col bg-[#F8F6F1] text-[#171716] font-sans selection:bg-[#171716] selection:text-[#F8F6F1]">
         <CartProvider>
-          <Suspense fallback={<div className="h-28 bg-[#FCFBF8]" />}>
+          <Suspense fallback={<div className="h-28 bg-[#F8F6F1]" />}>
             <Header />
           </Suspense>
           <main className="flex-1">{children}</main>

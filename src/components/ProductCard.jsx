@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { Heart, ShoppingBag, Eye } from "lucide-react";
+import { formatPrice } from "@/utils/currency";
 
 export default function ProductCard({ product }) {
   const { addToCart, isInWishlist, toggleWishlist } = useCart();
@@ -136,30 +137,30 @@ export default function ProductCard({ product }) {
 
       {/* Product Information */}
       <div className="pt-3 pb-2 space-y-1">
-        <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-[#78746B] font-mono">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-[#777168] font-mono">
           <span>{product.gender || "UNISEX"} • {product.category}</span>
           {product.stock <= 4 && (
-            <span className="text-[#8A353D] font-sans font-medium">Low Stock</span>
+            <span className="text-[#C9342D] font-sans font-medium">Low Stock</span>
           )}
         </div>
 
-        <h3 className="text-xs sm:text-[13px] font-medium tracking-wide uppercase text-[#1A1A18] group-hover:text-[#8A353D] transition-colors line-clamp-1">
+        <h3 className="text-xs sm:text-[13px] font-medium tracking-wide uppercase text-[#171716] group-hover:text-[#C9342D] transition-colors line-clamp-1">
           <Link href={`/products/${product.slug || product.id}`}>
             {product.name}
           </Link>
         </h3>
 
-        <p className="text-[11px] text-[#78746B] font-light line-clamp-1">
+        <p className="text-[11px] text-[#777168] font-light line-clamp-1">
           {product.subtitle}
         </p>
 
         {/* Price and Color Swatches */}
         <div className="pt-1 flex items-center justify-between">
           <div className="flex items-baseline space-x-2 text-xs font-mono">
-            <span className="font-semibold text-[#1A1A18]">${product.price}</span>
+            <span className="font-semibold text-[#171716]">{formatPrice(product.price)}</span>
             {product.originalPrice && (
-              <span className="text-[#8E8A80] line-through text-[11px]">
-                ${product.originalPrice}
+              <span className="text-[#9E988D] line-through text-[11px]">
+                {formatPrice(product.originalPrice)}
               </span>
             )}
           </div>

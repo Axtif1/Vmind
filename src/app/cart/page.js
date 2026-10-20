@@ -15,6 +15,7 @@ import {
   RotateCcw,
   ChevronRight
 } from "lucide-react";
+import { formatPrice } from "@/utils/currency";
 
 export default function CartPage() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function CartPage() {
     clearCart 
   } = useCart();
 
-  const FREE_SHIPPING_THRESHOLD = 250;
+  const FREE_SHIPPING_THRESHOLD = 1999;
   const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - cartSubtotal);
   const progressPercentage = Math.min(100, (cartSubtotal / FREE_SHIPPING_THRESHOLD) * 100);
 
@@ -96,10 +97,10 @@ export default function CartPage() {
                   <Truck className="w-4 h-4 mr-2 text-[#747C69]" />
                   {remainingForFreeShipping === 0 ? (
                     <span className="text-[#67705B] font-semibold">
-                      Complimentary Worldwide Delivery Unlocked
+                      Complimentary Pan-India Delivery Unlocked
                     </span>
                   ) : (
-                    <span>Add ${remainingForFreeShipping.toFixed(0)} for Free Express Courier</span>
+                    <span>Add {formatPrice(remainingForFreeShipping)} for Free Express Courier</span>
                   )}
                 </span>
                 <span className="font-mono text-[11px] text-[#736E64]">
@@ -149,7 +150,7 @@ export default function CartPage() {
                       </div>
 
                       <span className="font-mono text-base font-semibold text-[#1A1A18]">
-                        ${item.price * item.quantity}
+                        {formatPrice(item.price * item.quantity)}
                       </span>
                     </div>
 
@@ -158,7 +159,7 @@ export default function CartPage() {
                       <span>•</span>
                       <span>Color: {item.selectedColor}</span>
                       <span>•</span>
-                      <span>${item.price} each</span>
+                      <span>{formatPrice(item.price)} each</span>
                     </div>
 
                     <div className="pt-2 flex items-center justify-between">
@@ -232,23 +233,23 @@ export default function CartPage() {
               <div className="space-y-3 text-xs">
                 <div className="flex justify-between text-[#636058]">
                   <span>Items Subtotal</span>
-                  <span className="font-mono text-[#1A1A18] font-medium">${cartSubtotal}</span>
+                  <span className="font-mono text-[#1A1A18] font-medium">{formatPrice(cartSubtotal)}</span>
                 </div>
                 <div className="flex justify-between text-[#636058]">
-                  <span>Import Duties & VAT</span>
+                  <span>GST & Taxes</span>
                   <span className="font-mono text-[#67705B]">Included</span>
                 </div>
                 <div className="flex justify-between text-[#636058]">
-                  <span>Global Express Courier</span>
+                  <span>Pan-India Express Courier</span>
                   <span className="font-mono text-[#67705B]">
-                    {remainingForFreeShipping === 0 ? "Complimentary" : "$25"}
+                    {remainingForFreeShipping === 0 ? "Complimentary" : formatPrice(199)}
                   </span>
                 </div>
 
                 <div className="pt-4 border-t border-[#E2DDD2] flex justify-between text-base font-semibold text-[#1A1A18]">
                   <span className="uppercase tracking-wider">Estimated Total</span>
                   <span className="font-mono">
-                    ${remainingForFreeShipping === 0 ? cartSubtotal : cartSubtotal + 25} USD
+                    {formatPrice(remainingForFreeShipping === 0 ? cartSubtotal : cartSubtotal + 199)}
                   </span>
                 </div>
               </div>

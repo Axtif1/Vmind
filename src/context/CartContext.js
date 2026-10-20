@@ -18,9 +18,15 @@ export function CartProvider({ children }) {
   // Initialize cart from localStorage or pre-fill with demonstration luxury item
   useEffect(() => {
     try {
-      const savedCart = localStorage.getItem("vendome_cart");
+      const savedCart = localStorage.getItem("vmind_cart") || localStorage.getItem("vendome_cart");
       if (savedCart) {
-        setCart(JSON.parse(savedCart));
+        const parsed = JSON.parse(savedCart);
+        // Sync item price with current catalog to prevent stale USD cached prices
+        const refreshed = parsed.map((item) => {
+          const match = PRODUCTS.find((p) => p.id === item.id);
+          return match ? { ...item, price: match.price } : item;
+        });
+        setCart(refreshed);
       } else {
         // High-end demo default item so the user experiences cart immediately
         const demoProduct = PRODUCTS[0];
@@ -39,7 +45,7 @@ export function CartProvider({ children }) {
         ]);
       }
       
-      const savedWishlist = localStorage.getItem("vendome_wishlist");
+      const savedWishlist = localStorage.getItem("vmind_wishlist") || localStorage.getItem("vendome_wishlist");
       if (savedWishlist) {
         setWishlist(JSON.parse(savedWishlist));
       }
@@ -53,7 +59,7 @@ export function CartProvider({ children }) {
   useEffect(() => {
     if (!isInitialized) return;
     try {
-      localStorage.setItem("vendome_cart", JSON.stringify(cart));
+      localStorage.setItem("vmind_cart", JSON.stringify(cart));
     } catch (e) {
       console.error(e);
     }
@@ -62,7 +68,7 @@ export function CartProvider({ children }) {
   useEffect(() => {
     if (!isInitialized) return;
     try {
-      localStorage.setItem("vendome_wishlist", JSON.stringify(wishlist));
+      localStorage.setItem("vmind_wishlist", JSON.stringify(wishlist));
     } catch (e) {
       console.error(e);
     }

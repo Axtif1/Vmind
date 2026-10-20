@@ -22,6 +22,7 @@ import {
   Sparkles,
   Info
 } from "lucide-react";
+import { formatPrice } from "@/utils/currency";
 
 function ProductDetailContent({ params }) {
   // Unwrap Next.js dynamic params with React.use()
@@ -194,15 +195,15 @@ function ProductDetailContent({ params }) {
 
             <div className="pt-2 flex items-baseline space-x-3">
               <span className="font-mono text-2xl font-semibold text-[#1A1A18]">
-                ${product.price} USD
+                {formatPrice(product.price)}
               </span>
               {product.originalPrice && (
                 <span className="font-mono text-base text-[#8E8A80] line-through">
-                  ${product.originalPrice}
+                  {formatPrice(product.originalPrice)}
                 </span>
               )}
               <span className="text-[10px] tracking-wider uppercase text-[#67705B] font-mono ml-auto">
-                Taxes & Duties Included
+                GST & Taxes Included
               </span>
             </div>
           </div>
@@ -318,7 +319,7 @@ function ProductDetailContent({ params }) {
                 className="flex-1 bg-[#1A1A18] text-[#FCFBF8] hover:bg-[#34322D] py-3.5 px-6 text-xs font-semibold tracking-widest-editorial uppercase transition-all flex items-center justify-center space-x-2 shadow-md active:scale-98"
               >
                 <ShoppingBag className="w-4 h-4" />
-                <span>{isAdding ? "Adding To Bag..." : `Add To Bag • $${product.price * quantity}`}</span>
+                <span>{isAdding ? "Adding To Bag..." : `Add To Bag • ${formatPrice(product.price * quantity)}`}</span>
               </button>
 
             </div>
@@ -386,7 +387,7 @@ function ProductDetailContent({ params }) {
 
               {activeTab === "shipping" && (
                 <div className="space-y-2">
-                  <p><strong className="text-[#1A1A18] font-medium">Worldwide Shipping:</strong> Complimentary express courier delivery on orders exceeding $250. Delivered in archival garment dust bags.</p>
+                  <p><strong className="text-[#1A1A18] font-medium">Express Shipping:</strong> Complimentary express courier delivery across India on orders exceeding ₹1,999. Delivered in archival garment dust bags.</p>
                   <p><strong className="text-[#1A1A18] font-medium">Returns:</strong> 30-day doorstep courier collection with full refund or bespoke size exchange.</p>
                 </div>
               )}

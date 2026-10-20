@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { X, Minus, Plus, ShoppingBag, ArrowRight, Trash2, ShieldCheck, Truck } from "lucide-react";
+import { formatPrice } from "@/utils/currency";
 
 export default function CartDrawer() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function CartDrawer() {
     cartCount,
   } = useCart();
 
-  const FREE_SHIPPING_THRESHOLD = 250;
+  const FREE_SHIPPING_THRESHOLD = 1999;
   const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - cartSubtotal);
   const progressPercentage = Math.min(100, (cartSubtotal / FREE_SHIPPING_THRESHOLD) * 100);
 
@@ -49,20 +50,20 @@ export default function CartDrawer() {
       />
 
       {/* Drawer */}
-      <div className="relative w-full max-w-md bg-[#FCFBF8] h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-300">
+      <div className="relative w-full max-w-md bg-[#F8F6F1] h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-300">
         
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#E8E3D9]">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[#DDD8CF]">
           <div className="flex items-center space-x-2">
-            <span className="font-serif text-xl tracking-[0.16em] uppercase">Shopping Bag</span>
-            <span className="text-xs font-mono font-medium text-[#736E64] bg-[#EDE8DE] px-2 py-0.5">
+            <span className="font-serif text-xl tracking-[0.16em] uppercase text-[#171716]">Shopping Bag</span>
+            <span className="text-xs font-mono font-medium text-[#777168] bg-[#F0ECE4] px-2 py-0.5">
               {cartCount}
             </span>
           </div>
           <button
             type="button"
             onClick={() => setIsCartOpen(false)}
-            className="p-1.5 text-[#1A1A18] hover:opacity-60 transition-opacity"
+            className="p-1.5 text-[#171716] hover:text-[#C9342D] transition-colors"
             aria-label="Close bag"
           >
             <X className="w-5 h-5" />
@@ -70,23 +71,23 @@ export default function CartDrawer() {
         </div>
 
         {/* Free Shipping Tracker */}
-        <div className="bg-[#F5F2EC] px-6 py-3.5 border-b border-[#E8E3D9]">
+        <div className="bg-[#F0ECE4] px-6 py-3.5 border-b border-[#DDD8CF]">
           <div className="flex items-center justify-between text-xs tracking-wider uppercase mb-1.5 font-medium">
-            <span className="flex items-center text-[#545149]">
-              <Truck className="w-3.5 h-3.5 mr-1.5 text-[#747C69]" />
+            <span className="flex items-center text-[#777168]">
+              <Truck className="w-3.5 h-3.5 mr-1.5 text-[#C9342D]" />
               {remainingForFreeShipping === 0 ? (
-                <span className="text-[#67705B] font-semibold">Complimentary Worldwide Delivery Unlocked</span>
+                <span className="text-[#C9342D] font-semibold">Complimentary Pan-India Delivery Unlocked</span>
               ) : (
-                <span>Add ${remainingForFreeShipping.toFixed(0)} for Free Express Shipping</span>
+                <span>Add {formatPrice(remainingForFreeShipping)} for Free Express Shipping</span>
               )}
             </span>
-            <span className="font-mono text-[11px] text-[#736E64]">
+            <span className="font-mono text-[11px] text-[#777168]">
               {progressPercentage.toFixed(0)}%
             </span>
           </div>
-          <div className="w-full bg-[#E5DFD3] h-1.5 overflow-hidden">
+          <div className="w-full bg-[#DDD8CF] h-1.5 overflow-hidden">
             <div
-              className="bg-[#242421] h-full transition-all duration-500 ease-out"
+              className="bg-[#171716] h-full transition-all duration-500 ease-out"
               style={{ width: `${progressPercentage}%` }}
             />
           </div>
@@ -159,7 +160,7 @@ export default function CartDrawer() {
                     </div>
 
                     <div className="mt-1 text-xs font-mono font-medium text-[#1A1A18]">
-                      ${item.price}
+                      {formatPrice(item.price)}
                     </div>
                   </div>
 
@@ -188,7 +189,7 @@ export default function CartDrawer() {
                     </div>
 
                     <span className="text-xs font-mono font-semibold text-[#1A1A18]">
-                      ${item.price * item.quantity}
+                      {formatPrice(item.price * item.quantity)}
                     </span>
                   </div>
                 </div>
@@ -199,26 +200,26 @@ export default function CartDrawer() {
 
         {/* Footer Subtotal & Checkout */}
         {cart.length > 0 && (
-          <div className="border-t border-[#E8E3D9] bg-[#FCFBF8] p-6 space-y-4">
+          <div className="border-t border-[#DDD8CF] bg-[#F8F6F1] p-6 space-y-4">
             <div className="space-y-2 text-xs">
-              <div className="flex justify-between text-[#736E64]">
+              <div className="flex justify-between text-[#777168]">
                 <span>Estimated Subtotal</span>
-                <span className="font-mono text-[#1A1A18] font-medium">${cartSubtotal}</span>
+                <span className="font-mono text-[#171716] font-medium">{formatPrice(cartSubtotal)}</span>
               </div>
-              <div className="flex justify-between text-[#736E64]">
-                <span>Duties & Taxes</span>
-                <span className="font-mono text-[#67705B]">Included</span>
+              <div className="flex justify-between text-[#777168]">
+                <span>GST & Taxes</span>
+                <span className="font-mono text-[#566150]">Included</span>
               </div>
-              <div className="flex justify-between text-[#736E64]">
+              <div className="flex justify-between text-[#777168]">
                 <span>Express Courier</span>
-                <span className="font-mono text-[#67705B]">
-                  {remainingForFreeShipping === 0 ? "Complimentary" : "$25"}
+                <span className="font-mono text-[#566150]">
+                  {remainingForFreeShipping === 0 ? "Complimentary" : formatPrice(199)}
                 </span>
               </div>
-              <div className="flex justify-between text-sm font-semibold pt-2 border-t border-[#EDE8DE] text-[#1A1A18]">
+              <div className="flex justify-between text-sm font-semibold pt-2 border-t border-[#DDD8CF] text-[#171716]">
                 <span className="uppercase tracking-wider">Total</span>
                 <span className="font-mono">
-                  ${remainingForFreeShipping === 0 ? cartSubtotal : cartSubtotal + 25}
+                  {formatPrice(remainingForFreeShipping === 0 ? cartSubtotal : cartSubtotal + 199)}
                 </span>
               </div>
             </div>
@@ -230,7 +231,7 @@ export default function CartDrawer() {
                   setIsCartOpen(false);
                   router.push("/checkout");
                 }}
-                className="w-full bg-[#1A1A18] text-[#FCFBF8] hover:bg-[#34322D] py-3.5 px-4 text-xs font-semibold tracking-widest-editorial uppercase transition-all flex items-center justify-center space-x-2 shadow-sm"
+                className="w-full bg-[#171716] text-[#F8F6F1] hover:bg-[#C9342D] py-3.5 px-4 text-xs font-semibold tracking-widest-editorial uppercase transition-all flex items-center justify-center space-x-2 shadow-sm"
               >
                 <span>Proceed To Checkout</span>
                 <ArrowRight className="w-4 h-4" />
@@ -239,14 +240,14 @@ export default function CartDrawer() {
               <button
                 type="button"
                 onClick={() => setIsCartOpen(false)}
-                className="w-full py-2.5 text-center text-xs tracking-wider uppercase text-[#736E64] hover:text-[#1A1A18] transition-colors font-medium"
+                className="w-full py-2.5 text-center text-xs tracking-wider uppercase text-[#777168] hover:text-[#171716] transition-colors font-medium"
               >
                 Continue Browsing
               </button>
             </div>
 
-            <div className="flex items-center justify-center space-x-2 pt-2 text-[10px] text-[#8E8A80] uppercase tracking-wider">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#747C69]" />
+            <div className="flex items-center justify-center space-x-2 pt-2 text-[10px] text-[#777168] uppercase tracking-wider">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#566150]" />
               <span>Complimentary Returns • Insured Delivery</span>
             </div>
           </div>

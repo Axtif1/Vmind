@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { PRODUCTS } from "@/data/products";
 import { Search, X, ArrowUpRight, Sparkles } from "lucide-react";
+import { formatPrice } from "@/utils/currency";
 
 export default function SearchModal() {
   const { isSearchOpen, setIsSearchOpen } = useCart();
@@ -65,24 +66,24 @@ export default function SearchModal() {
       />
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-3xl bg-[#FCFBF8] border border-[#E8E3D9] shadow-2xl z-10 flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-3xl bg-[#F8F6F1] border border-[#DDD8CF] shadow-2xl z-10 flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200">
         
         {/* Search Input Bar */}
-        <div className="flex items-center px-6 py-5 border-b border-[#E8E3D9] bg-[#F5F2EC]">
-          <Search className="w-5 h-5 text-[#736E64] mr-3 flex-shrink-0" />
+        <div className="flex items-center px-6 py-5 border-b border-[#DDD8CF] bg-[#F0ECE4]">
+          <Search className="w-5 h-5 text-[#777168] mr-3 flex-shrink-0" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="SEARCH BY GARMENT, TEXTILE, OR SILHOUETTE..."
-            className="w-full bg-transparent text-sm sm:text-base tracking-wider uppercase placeholder-[#9C978D] text-[#1A1A18] focus:outline-none"
+            className="w-full bg-transparent text-sm sm:text-base tracking-wider uppercase placeholder-[#9E988D] text-[#171716] focus:outline-none"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery("")}
-              className="text-xs tracking-wider uppercase text-[#736E64] hover:text-[#1A1A18] mr-3"
+              className="text-xs tracking-wider uppercase text-[#777168] hover:text-[#C9342D] mr-3"
             >
               Clear
             </button>
@@ -90,7 +91,7 @@ export default function SearchModal() {
           <button
             type="button"
             onClick={() => setIsSearchOpen(false)}
-            className="p-1 text-[#1A1A18] hover:opacity-60 transition-opacity ml-2"
+            className="p-1 text-[#171716] hover:text-[#C9342D] transition-colors ml-2"
             aria-label="Close search"
           >
             <X className="w-5 h-5" />
@@ -98,16 +99,16 @@ export default function SearchModal() {
         </div>
 
         {/* Popular Tags */}
-        <div className="px-6 py-3.5 bg-[#FAF7F2] border-b border-[#EDE8DE] flex items-center space-x-2 overflow-x-auto text-xs">
-          <span className="text-[10px] tracking-widest uppercase font-semibold text-[#8E8A80] flex items-center mr-1">
-            <Sparkles className="w-3 h-3 mr-1 text-[#B5A38A]" /> Suggestions:
+        <div className="px-6 py-3.5 bg-[#F8F6F1] border-b border-[#DDD8CF] flex items-center space-x-2 overflow-x-auto text-xs">
+          <span className="text-[10px] tracking-widest uppercase font-semibold text-[#777168] flex items-center mr-1">
+            <Sparkles className="w-3 h-3 mr-1 text-[#C9342D]" /> Suggestions:
           </span>
           {popularSearches.map((term) => (
             <button
               key={term}
               type="button"
               onClick={() => setQuery(term)}
-              className="bg-[#EFECE4] hover:bg-[#E2DDD2] text-[#4A4741] px-2.5 py-1 text-[11px] tracking-wider uppercase transition-colors whitespace-nowrap"
+              className="bg-[#F0ECE4] hover:bg-[#171716] hover:text-[#F8F6F1] text-[#171716] px-2.5 py-1 text-[11px] tracking-wider uppercase transition-colors whitespace-nowrap"
             >
               {term}
             </button>
@@ -187,10 +188,10 @@ export default function SearchModal() {
                         </p>
                       </div>
                       <div className="text-xs font-mono font-medium text-[#1A1A18] flex items-center space-x-2">
-                        <span>${product.price}</span>
+                        <span>{formatPrice(product.price)}</span>
                         {product.originalPrice && (
                           <span className="text-[#8E8A80] line-through text-[11px]">
-                            ${product.originalPrice}
+                            {formatPrice(product.originalPrice)}
                           </span>
                         )}
                       </div>

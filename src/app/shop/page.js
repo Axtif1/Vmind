@@ -44,9 +44,9 @@ function ShopContent() {
   const sizes = ["all", "XS", "S", "M", "L", "XL", "30", "32", "34", "36", "41", "42", "43"];
   const priceRanges = [
     { id: "all", label: "All Prices" },
-    { id: "under-250", label: "Under $250" },
-    { id: "250-500", label: "$250 – $500" },
-    { id: "above-500", label: "Above $500" },
+    { id: "under-1500", label: "Under ₹1,499" },
+    { id: "1500-3000", label: "₹1,499 – ₹2,999" },
+    { id: "above-3000", label: "Above ₹3,000" },
   ];
   const colors = [
     { name: "all", label: "All Hues" },
@@ -99,9 +99,9 @@ function ShopContent() {
       }
 
       // Price range filter
-      if (selectedPriceRange === "under-250" && product.price >= 250) return false;
-      if (selectedPriceRange === "250-500" && (product.price < 250 || product.price > 500)) return false;
-      if (selectedPriceRange === "above-500" && product.price <= 500) return false;
+      if (selectedPriceRange === "under-1500" && product.price > 1499) return false;
+      if (selectedPriceRange === "1500-3000" && (product.price < 1499 || product.price > 2999)) return false;
+      if (selectedPriceRange === "above-3000" && product.price < 3000) return false;
 
       // Color filter
       if (selectedColor !== "all") {
